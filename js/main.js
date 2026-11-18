@@ -14,7 +14,7 @@
     l_shothome: 'JaPax home page: “Know what to protect, before the fire decides” with the logo and NASA archive figures',
     l_shotrank: 'JaPax investigation ranking with score bars per criterion', l_orglogo: 'thisweb.es logo',
     fcc_tl: 'freeCodeCamp · HTML5 and CSS3',
-    l_tel: 'Phone',
+    l_tel: 'Phone', l_quick: 'Quick actions',
     c_head: 'Let’s talk', fcc_s: 'freeCodeCamp · 2025 · HTML5 and CSS3', j_cta: 'See the code on GitHub',
     pitch: 'I put software into production: websites and systems for real businesses, automations, and a fire simulator for the NASA Space Apps Challenge.',
     n_about: 'About', n_projects: 'Projects', n_exp: 'Experience', n_edu: 'Education', n_contact: 'Contact',
@@ -94,6 +94,7 @@
     document.documentElement.lang = l;
     document.title = TITLE[l];
     document.querySelector('meta[name="description"]').content = DESC[l];
+    document.querySelectorAll('[data-cv]').forEach(a => { a.href = l === 'en' ? a.dataset.cvEn : a.dataset.cvEs; });
     poster.alt = t('l_shot') + current.textContent;
     frame.title = t('l_live') + current.textContent;
     document.querySelectorAll('[data-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === l)));
@@ -185,6 +186,12 @@
   try { saved = localStorage.getItem('lang'); } catch (e) {}
   const initial = saved || ((navigator.language || 'es').toLowerCase().startsWith('es') ? 'es' : 'en');
   if (initial !== 'es') applyLang(initial);
+
+  // Barra de acción móvil: aparece cuando los botones de la portada salen de pantalla
+  const mbar = document.getElementById('mbar'), heroCta = document.querySelector('.hero .cta-row');
+  if (mbar && heroCta && 'IntersectionObserver' in window) {
+    new IntersectionObserver(es => es.forEach(e => mbar.classList.toggle('is-on', !e.isIntersecting && e.boundingClientRect.top < 0)), { threshold: 0 }).observe(heroCta);
+  }
 
   // Navegación: línea de la sección activa
   const links = [...document.querySelectorAll('[data-nav]')];

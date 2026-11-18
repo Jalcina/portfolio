@@ -18,3 +18,4 @@ Ningún raster de este proyecto está generado por IA. Todos son capturas reales
 | brand/japax-wordmark.png | Recorte del logotipo de JaPax (repo Jalcina/Japax, public/brand). |
 | cv-jaime-alcina-urdiales.pdf | CV del autor. Incluye su teléfono a petición suya. |
 | shots/*.jpg de las 5 webs en vivo | Re-capturadas el 2026-11-18 (1136x760) esperando a que terminen los contadores animados. |
+| cv-jaime-alcina-urdiales-en.pdf | CV en inglés del autor (traducción de su CV). Incluye su teléfono a petición suya. |
