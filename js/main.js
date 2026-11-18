@@ -80,6 +80,7 @@
   const tabs = [...document.querySelectorAll('[role="tab"]')];
   const viewport = $('viewport'), frame = $('frame'), poster = $('poster'), start = $('start'), blocked = $('blocked');
   const urlEl = $('url'), openEl = $('open'), stateEl = $('state'), nameEl = $('site-name'), descEl = $('site-desc');
+  const small = window.matchMedia('(max-width: 640px)');
   let current = tabs[0];
   let activated = false;
   let frameReady = false;
@@ -140,7 +141,7 @@
     viewport.setAttribute('aria-labelledby', tab.id);
     urlEl.textContent = tab.dataset.url;
     openEl.href = tab.dataset.url;
-    poster.src = tab.dataset.poster;
+    poster.src = small.matches && tab.dataset.posterSm ? tab.dataset.posterSm : tab.dataset.poster;
     poster.alt = t('l_shot') + tab.textContent;
     frameReady = false; poster.removeAttribute('aria-hidden');
     frame.title = t('l_live') + tab.textContent;
@@ -171,6 +172,7 @@
       if (n) { e.preventDefault(); tabs.forEach(x => { x.tabIndex = x === n ? 0 : -1; }); n.focus(); reveal(n); }
     });
   });
+  small.addEventListener('change', () => { if (!frameReady) poster.src = small.matches && current.dataset.posterSm ? current.dataset.posterSm : current.dataset.poster; });
   start.addEventListener('click', () => { activated = true; loadFrame(); viewport.focus({ preventScroll: true }); });
   select(tabs[0], false);
   ready = true;
